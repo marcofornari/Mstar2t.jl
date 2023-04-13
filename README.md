@@ -49,4 +49,4 @@ N
 Note: By running `julia -t auto`, Julia will use the number of local CPU threads.
 
 ### Examples
-Check [examples](https://github.com/marcofornari/Mstar2t.jl/tree/main/julia/examples) folder for examples. 
+Check [examples](https://github.com/marcofornari/Mstar2t.jl/tree/main/examples) folder for examples. 
