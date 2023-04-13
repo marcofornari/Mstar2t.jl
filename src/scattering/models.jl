@@ -54,6 +54,20 @@ end
 
 
 @doc raw"""
+    ET_fun(τ::Function)
+
+Set the **energy** and **temperature dependence** of the relaxation time from a function given by the user.  
+
+Example:
+f(ϵ,T) = sqrt(ϵ)/T  # τ ∝ √ϵ/T
+τ_model = ET_fun(f)
+"""
+function ET_fun(τ::Function)
+    return ϵTFunc(τ=τ)
+end
+
+
+@doc raw"""
     impurity(ϵ_im::Real, A_im::Real=1;γ::Real=1.)
 
 Include **impurity scattering** in the simulations.

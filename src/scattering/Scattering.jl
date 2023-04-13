@@ -27,8 +27,8 @@ using Parameters
 
 using ..Utils: ParabBand, BandStructure, get_enlowestband
 
-export  ScModel, Matthiessen,
-        constant, T_fun, acoustic, impurity, matthiessen, 
+export  ScModel, Matthiessen, ϵTFunc,
+        constant, T_fun, ET_fun, acoustic, impurity, matthiessen, 
         compute_τ, matthiessen_rule
 
         
@@ -52,6 +52,11 @@ end
 @with_kw struct TFunc <: ScModel
     τ::Function
     name::String = "tfun"
+end
+
+@with_kw struct ϵTFunc <: ScModel
+    τ::Function
+    name::String = "ϵtfun"
 end
 
 @with_kw struct Matthiessen

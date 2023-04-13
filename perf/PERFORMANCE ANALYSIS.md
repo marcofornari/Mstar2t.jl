@@ -36,7 +36,7 @@ Number of calculation for each tensor: 2016
 | 174.550   | 86.6             | 1732847     | 62.25             |
 | 336.379   | 166.9            | 4744556     | 123.05            |
 
-### 4. MKL + PARALLEL 
+### 4. MKL + PARALLEL
 
 Number of calculation for each tensor: 2016
 

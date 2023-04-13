@@ -36,7 +36,7 @@ using SharedArrays
 using CairoMakie: Figure
 
 using ..Utils
-using ..Scattering: ScModel, Matthiessen, compute_τ, matthiessen_rule
+using ..Scattering: ScModel, Matthiessen, ϵTFunc, compute_τ, matthiessen_rule
 
 export  precalculation!,
         electrical_conductivity,

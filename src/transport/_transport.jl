@@ -453,6 +453,22 @@ function Ln(ϵ₀::Float64, μ::Float64, bandtype::Int64, T::Float64, β::Float6
 end
 
 
+# numerical integration of Ln for τ(ϵ,T)
+function Ln(ϵ₀::Float64, μ::Float64, bandtype::Int64, T::Float64, β::Float64, n::Int64, idx::Int64, scm::ϵTFunc)
+    sF = time_ns()
+    s = bandtype*β*(ϵ₀-μ)
+    inv_β = 1/β
+    Lₙ = pref*bandtype^(n+1)*inv_β^(n + 3/2)  # constant prefactor
+    sum_Lₙ = 0.0
+    for i in eachindex(tint)
+        sum_Lₙ += (scm.τ(tint[i], T))^idx * kn_arb_int(tint[i], s, n) * wint[i] # integral calculation
+    end
+    Lₙ *= sum_Lₙ
+    time["Integrate"] += time_ns() - sF
+    return Lₙ
+end
+
+
 # If τ is an array (>1 scattering mechanisms) -> combine with Matthiessen rule
 function Ln(ϵ₀::Float64, μ::Float64, bandtype::Int64, T::Float64, β::Float64, n::Int64, idx::Int64, scm::Matthiessen)
     sF = time_ns()

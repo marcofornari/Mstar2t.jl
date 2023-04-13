@@ -31,7 +31,7 @@ const sl        = 299792458 # speed of light (m/s)
 const ϵijk      = cat([0 0 0; 0 0 1; 0 -1 0], [0 0 -1; 0 0 0; 1 0 0], [0 1 0; -1 0 0; 0 0 0], dims=3)   # levi civta tensor in 3 dims
 
 # Mstar2t parameters
-const Nint      = 200 # Size of the Gaussian Quadrature grid
+const Nint      = 5000 # Size of the Gaussian Quadrature grid
 
 # precalculation of constants
 const inv_kB    = 1/kB
