@@ -34,7 +34,7 @@
 Open a Julia REPL, enter the Julia package manager (typing `]`) and then add the package with the ssh url of the repository:
 
 ```bash
-(v1.6) pkg> add https://github.com/marcofornari/etrasport.git
+(v1.6) pkg> add https://github.com/marcofornari/Mstar2t.jl.git
 ```
 
 Then you should be able to import Mstar2t as a normal Julia package and use its functions.  
@@ -49,4 +49,4 @@ N
 Note: By running `julia -t auto`, Julia will use the number of local CPU threads.
 
 ### Examples
-Check [examples](https://github.com/marcofornari/etrasport/tree/main/julia/examples) folder for examples. 
+Check [examples](https://github.com/marcofornari/Mstar2t.jl/tree/main/julia/examples) folder for examples. 
