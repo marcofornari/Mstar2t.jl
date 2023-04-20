@@ -27,8 +27,8 @@ Pages = [
 Depth = 1
 ```
 
-
 ## [Functions](@id main-index)
+
 ```@index
 Pages = ["docfun.md"]
 ```

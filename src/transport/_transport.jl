@@ -62,7 +62,7 @@ end
 @doc raw"""
     electrical_conductivity(bandstructure::BandStructure, Ts::Union{Vector{Float64},Float64,Vector{Int64},Int64}, τ::Union{ScModel,Matthiessen}; exportasdf::Bool=false, fulltensor::Bool=false)
  
-Function that by default computes the trace of the tensorial version of the electical conductivity in units of $(\Omega m)^{-1}$ for a given `bandstructure` and a choice of the relaxation time `$\tau$`, for given values of chemical potential `$\mu$` and temperature `Ts`. The transport coefficient is returned as a `matrix` of dimensions `(length(T),length(μ))`. The boolean variable `exportasdf` allows to return the calculations as a `DataFrame` with all the parameters included. If `fulltensor` is set to `true` the full tensor is returned in place of the trace.
+Function that by default computes the trace of the tensorial version of the electical conductivity in units of $(\Omega m)^{-1}$ for a given `bandstructure` and a choice of the relaxation time $\tau$, for given values of chemical potential $\mu$ and temperature `Ts`. The transport coefficient is returned as a `matrix` of dimensions `(length(T),length(μ))`. The boolean variable `exportasdf` allows to return the calculations as a `DataFrame` with all the parameters included. If `fulltensor` is set to `true` the full tensor is returned in place of the trace.
 Reference: "Theory of band warping and its effects on thermoelectronic transport properties", PHYSICAL REVIEW B89.
 
 # Example
@@ -131,7 +131,7 @@ end
 @doc raw"""
     seebeck_coefficient(bandstructure::BandStructure, Ts::Union{Vector{Float64},Float64,Vector{Int64},Int64},τ::Union{ScModel,Matthiessen}; exportasdf::Bool=false, fulltensor::Bool=false)
  
-Function that by default computes the Seebeck coefficient in units of $V/K$ for a given `bandstructure` and a choice of the relaxation time `$\tau$`, for given values of chemical potential `$\mu$` and temperature `Ts`. The transport coefficient is returned as a `matrix` of dimensions `(length(T),length(μ))`. The boolean variable `exportasdf` allows to return the calculations as a `DataFrame` with all the parameters included. If `fulltensor` is set to `true`, the full tensor is returned in place of the trace.
+Function that by default computes the Seebeck coefficient in units of $V/K$ for a given `bandstructure` and a choice of the relaxation time $\tau$, for given values of chemical potential $\mu$ and temperature `Ts`. The transport coefficient is returned as a `matrix` of dimensions `(length(T),length(μ))`. The boolean variable `exportasdf` allows to return the calculations as a `DataFrame` with all the parameters included. If `fulltensor` is set to `true`, the full tensor is returned in place of the trace.
 Reference: "Theory of band warping and its effects on thermoelectronic transport properties", PHYSICAL REVIEW B89.
 
 # Example
@@ -201,7 +201,7 @@ end
 @doc raw"""
     carrier_concentration(bandstructure::BandStructure, Ts::Union{Vector{Float64},Float64,Vector{Int64},Int64}, τ::Union{ScModel,Matthiessen}; exportasdf::Bool=false)
  
-Function that computes the carrier concentration for a given `bandstructure` and a choice of the relaxation time `$\tau$`, for given values of chemical potential `$\mu$` and temperature `Ts`. The transport coefficient is returned as a `matrix` of dimensions `(length(T),length(μ))`. The boolean variable `exportasdf` allows to return the calculations as a `DataFrame` with all the parameters included.
+Function that computes the carrier concentration for a given `bandstructure` and a choice of the relaxation time $\tau$, for given values of chemical potential $\mu$ and temperature `Ts`. The transport coefficient is returned as a `matrix` of dimensions `(length(T),length(μ))`. The boolean variable `exportasdf` allows to return the calculations as a `DataFrame` with all the parameters included.
 
 # Example
 ```jldoctest
@@ -273,7 +273,7 @@ end
 @doc raw"""
     thermal_conductivity(bandstructure::BandStructure, Ts::Union{Vector{Float64},Float64,Vector{Int64},Int64},τ::Union{ScModel,Matthiessen}; exportasdf::Bool=false, fulltensor::Bool=false)
 
-Function that computes the thermal conductivity in units of $W/K$ for a given `bandstructure` and a choice of the relaxation time `$\tau$`, for given values of chemical potential `$\mu$` and temperature `Ts`. The transport coefficient is returned as a `matrix` of dimensions `(length(T),length(μ))`. The boolean variable `exportasdf` allows to return the calculations as a `DataFrame` with all the parameters included. If `fulltensor` is set to `true`, the full tensor is returned in place of the trace.. 
+Function that computes the thermal conductivity in units of $W/K$ for a given `bandstructure` and a choice of the relaxation time $\tau$, for given values of chemical potential $\mu$ and temperature `Ts`. The transport coefficient is returned as a `matrix` of dimensions `(length(T),length(μ))`. The boolean variable `exportasdf` allows to return the calculations as a `DataFrame` with all the parameters included. If `fulltensor` is set to `true`, the full tensor is returned in place of the trace.. 
 Reference: "Theory of band warping and its effects on thermoelectronic transport properties", PHYSICAL REVIEW B89.
 
 # Example
@@ -348,7 +348,7 @@ end
 @doc raw"""
 lorenz_tensor(bandstructure::BandStructure, Ts::Union{Vector{Float64},Float64,Vector{Int64},Int64},τ::Union{ScModel,Matthiessen}; exportasdf::Bool=false, fulltensor::Bool=false)
 
-Function that computes the Lorentz tensor for a given `bandstructure` and a choice of the relaxation time `$\tau$`, for given values of chemical potential `$\mu$` and temperature `Ts`. The transport coefficient is returned as a `matrix` of dimensions `(length(T),length(μ))`. The boolean variable `exportasdf` allows to return the calculations as a `DataFrame` with all the parameters included. If `fulltensor` is set to `true`, the full tensor is returned in place of the trace. 
+Function that computes the Lorentz tensor for a given `bandstructure` and a choice of the relaxation time $\tau$, for given values of chemical potential $\mu$ and temperature `Ts`. The transport coefficient is returned as a `matrix` of dimensions `(length(T),length(μ))`. The boolean variable `exportasdf` allows to return the calculations as a `DataFrame` with all the parameters included. If `fulltensor` is set to `true`, the full tensor is returned in place of the trace. 
 The Lorentz tensor is defined as the ratio between thermal and electrical conductivity multiplied by temperature. Ref.: https://en.wikipedia.org/wiki/Wiedemann-Franz_law
 
 # Example

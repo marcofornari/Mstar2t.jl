@@ -29,7 +29,7 @@
 - QuadGK == 2.6
 - SpecialFunctions == 2.1
 
-## Installation
+## Package installation
 
 Open a Julia REPL, enter the Julia package manager (typing `]`) and then add the package with the ssh url of the repository:
 

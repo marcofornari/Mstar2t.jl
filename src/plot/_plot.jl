@@ -40,7 +40,7 @@ jlgreen = Colors.JULIA_LOGO_COLORS.green
 Plot the transport coefficients. `y` must be a vector if plotting a single line, or a matrix of **shape** `(length(x_axis),length(z_axis))` if plotting more than one line. 
 
 Parameters:
-- `num_plots` (Int64): number of transport coefficients to plot in the same figure
+- ```julia num_plots::Int64```: number of transport coefficients to plot in the same figure
 - `x` (Union{Vector{Float64},Float64,Vector{Int64},Int64}): x axis vector
 - `y` (Union{Vector{Float64},Matrix{Float64},Vector{Vector{Float64}},Vector{Matrix{Float64}}}): y axis vector/matrix
 - `z` (Union{Vector{Float64},Vector{Int64}}): z axis vector

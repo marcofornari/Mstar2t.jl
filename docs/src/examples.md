@@ -8,7 +8,7 @@ The [examples](https://github.com/marcofornari/Mstar2t.jl/tree/main/examples) fo
 
 ### Single-band model
 
-```jldoctest
+```julia
 using Mstar2t
 using Mstar2t: Scattering
 
@@ -34,7 +34,7 @@ n = carrier_concentration(model,T,τ_form);      # carrier concentration
 
 ### Bipolar transport
 
-```jldoctest
+```julia
 using Mstar2t
 using Mstar2t: Scattering
 
@@ -67,7 +67,7 @@ n = carrier_concentration(model,T,τ_form);      # carrier concentration
 
 ### Band convergence
 
-```jldoctest
+```julia
 using Mstar2t
 using Mstar2t: Scattering
 
@@ -106,7 +106,7 @@ n = carrier_concentration(model,T,τ_form);      # carrier concentration
 
 ### Wiedemann-Franz law
 
-```jldoctest
+```julia
 using Mstar2t
 using Mstar2t: Scattering
 
@@ -136,7 +136,7 @@ L = lorenz_tensor(model,T,τ_form);              # Lorentz tensor
 
 ### Single-band model 
 
-```jldoctest
+```julia
 using Mstar2t
 using Mstar2t: Scattering
 
@@ -168,7 +168,7 @@ n_nc = carrier_concentration(model,T,τ_form);   # carrier concentration
 
 ### Double-band model
 
-```jldoctest
+```julia
 using Mstar2t
 using Mstar2t: Scattering
 
@@ -201,7 +201,7 @@ n_nc = carrier_concentration(model,T,τ_form);   # carrier concentration
 
 ### Three-band model
 
-```jldoctest
+```julia
 using Mstar2t
 using Mstar2t: Scattering
 
@@ -237,7 +237,7 @@ n_nc = carrier_concentration(model,T,τ_form);   # carrier concentration
 
 ### Four-band model
 
-```jldoctest
+```julia
 using Mstar2t
 using Mstar2t: Scattering
 
@@ -278,7 +278,7 @@ n_nc = carrier_concentration(model,T,τ_form);   # carrier concentration
 
 ### Five-band model
 
-```jldoctest
+```julia
 using Mstar2t
 using Mstar2t: Scattering
 
