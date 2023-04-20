@@ -1,9 +1,9 @@
 # push!(LOAD_PATH,"../Mstar2t")
+push!(LOAD_PATH,"../src/")
 import Documenter
 using Mstar2t
-using Mstar2t: Transport
 
-Documenter.makedocs(modules  = Module[Mstar2t, Transport],
+Documenter.makedocs(modules  = Module[Mstar2t],
     format = Documenter.HTML(
         canonical = "https://marcofornari.github.io/Mstar2t.jl/stable",
         assets = ["assets/icon.ico"],

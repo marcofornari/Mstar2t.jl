@@ -2,7 +2,7 @@
 
 *Julia package version of the m\*2T software*
 
-## Requirements 
+## Requirements
 
 - Julia>=1.6
 

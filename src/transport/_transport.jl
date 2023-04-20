@@ -60,10 +60,23 @@ end
 
 
 @doc raw"""
-    electrical_conductivity(model::BandStructure,Ts::Union{Vector{Float64},Float64,Vector{Int64},Int64},τ::Union{ScModel,Matthiessen}; exportasdf::Bool=false,fulltensor::Bool=false)
+    electrical_conductivity(bandstructure::BandStructure, Ts::Union{Vector{Float64},Float64,Vector{Int64},Int64}, τ::Union{ScModel,Matthiessen}; exportasdf::Bool=false, fulltensor::Bool=false)
  
-Function that by default computes the trace of the tensorial version of the electical conductivity in units of $(\Omega m)^{-1}$ for a given `bandstructure` and a choice of the relaxation time, for an array of `fermi_level` and `temperature`. The transport coefficient is returned as a `matrix` of dimensions length(T)*length(μ). The boolean variable `exportasdf` allows to return the calculations as a `DataFrame` with all the parameters included. If `fulltensor` is set to `true` the full tensor is returned in place of the trace.
+Function that by default computes the trace of the tensorial version of the electical conductivity in units of $(\Omega m)^{-1}$ for a given `bandstructure` and a choice of the relaxation time `$\tau$`, for given values of chemical potential `$\mu$` and temperature `Ts`. The transport coefficient is returned as a `matrix` of dimensions `(length(T),length(μ))`. The boolean variable `exportasdf` allows to return the calculations as a `DataFrame` with all the parameters included. If `fulltensor` is set to `true` the full tensor is returned in place of the trace.
 Reference: "Theory of band warping and its effects on thermoelectronic transport properties", PHYSICAL REVIEW B89.
+
+# Example
+```jldoctest
+julia> m = [1.0, 1.0, 1.0, 0.0, 0.0, 0.0];  # effectuve mass
+julia> band = ParabBand(m,0.0,1,1); # build the band
+julia> μ = collect(-.1:.01:.1); # fermi level position
+julia> model = BandStructure(1,band_1,μ)    # build the band structure
+julia> T = collect(50:10:650);  # temperature range
+julia> τ_form = Scattering.constant()   # relaxation time
+
+julia> σ = electrical_conductivity(model,T,τ_form); # compute the electrical conductivity
+```
+
 """
 function electrical_conductivity(model::BandStructure,Ts::Union{Vector{Float64},Float64,Vector{Int64},Int64},τ::Union{ScModel,Matthiessen}; exportasdf::Bool=false,fulltensor::Bool=false)
 
@@ -116,10 +129,23 @@ end
 
 
 @doc raw"""
-    seebeck_coefficient(model::BandStructure, Ts::Union{Vector{Float64},Float64,Vector{Int64},Int64},τ::Union{ScModel,Matthiessen};exportasdf::Bool=false,fulltensor::Bool=false)
+    seebeck_coefficient(bandstructure::BandStructure, Ts::Union{Vector{Float64},Float64,Vector{Int64},Int64},τ::Union{ScModel,Matthiessen}; exportasdf::Bool=false, fulltensor::Bool=false)
  
-Function that by default computes the Seebeck coefficient in units of $V/K$ for a given `bandstructure` and a choice of the relaxation time, for an array of `fermi_level` and `temperature`. The transport coefficient is returned as a `matrix` of dimensions length(T)*length(μ). The boolean variable `exportasdf` allows to return the calculations as a `DataFrame` with all the parameters included. If `fulltensor` is set to `true`, the full tensor is returned in place of the trace.
+Function that by default computes the Seebeck coefficient in units of $V/K$ for a given `bandstructure` and a choice of the relaxation time `$\tau$`, for given values of chemical potential `$\mu$` and temperature `Ts`. The transport coefficient is returned as a `matrix` of dimensions `(length(T),length(μ))`. The boolean variable `exportasdf` allows to return the calculations as a `DataFrame` with all the parameters included. If `fulltensor` is set to `true`, the full tensor is returned in place of the trace.
 Reference: "Theory of band warping and its effects on thermoelectronic transport properties", PHYSICAL REVIEW B89.
+
+# Example
+```jldoctest
+julia> m = [1.0, 1.0, 1.0, 0.0, 0.0, 0.0];  # effectuve mass
+julia> band = ParabBand(m,0.0,1,1); # build the band
+julia> μ = collect(-.1:.01:.1); # fermi level position
+julia> model = BandStructure(1,band_1,μ)    # build the band structure
+julia> T = collect(50:10:650);  # temperature range
+julia> τ_form = Scattering.constant()   # relaxation time
+
+julia> S = seebeck_coefficient(model,T,τ_form); # compute the Seebeck coefficient
+```
+
 """
 function seebeck_coefficient(model::BandStructure, Ts::Union{Vector{Float64},Float64,Vector{Int64},Int64},τ::Union{ScModel,Matthiessen};exportasdf::Bool=false,fulltensor::Bool=false)
 
@@ -172,10 +198,23 @@ function compute_seebeck(num_bands::Int64,cTensorParameters::Vector{Vector{Float
     return S
 end
 
-@doc raw"""
-    carrier_concentration(model::BandStructure, Ts::Union{Vector{Float64},Float64,Vector{Int64},Int64},τ::Union{ScModel,Matthiessen}; exportasdf::Bool=false)
+"""
+    carrier_concentration(bandstructure::BandStructure, Ts::Union{Vector{Float64},Float64,Vector{Int64},Int64}, τ::Union{ScModel,Matthiessen}; exportasdf::Bool=false)
  
-Function that computes the carrier concentration for a given `bandstructure` and a choice of the relaxation time, and for an array of `fermi_level` and `temperature`. The transport coefficient is returned as a `matrix` of dimensions length(T)*length(μ). The boolean variable `exportasdf` allows to return the calculations as a `DataFrame` with all the parameters included.
+Function that computes the carrier concentration for a given `bandstructure` and a choice of the relaxation time `$\tau$`, for given values of chemical potential `$\mu$` and temperature `Ts`. The transport coefficient is returned as a `matrix` of dimensions `(length(T),length(μ))`. The boolean variable `exportasdf` allows to return the calculations as a `DataFrame` with all the parameters included.
+
+# Example
+```jldoctest
+julia> m = [1.0, 1.0, 1.0, 0.0, 0.0, 0.0];  # effectuve mass
+julia> band = ParabBand(m,0.0,1,1); # build the band
+julia> μ = collect(-.1:.01:.1); # fermi level position
+julia> model = BandStructure(1,band_1,μ)    # build the band structure
+julia> T = collect(50:10:650);  # temperature range
+julia> τ_form = Scattering.constant()   # relaxation time
+
+julia> n = carrier_concentration(model,T,τ_form); # compute the carrier concentration
+```
+
 """
 function carrier_concentration(model::BandStructure, Ts::Union{Vector{Float64},Float64,Vector{Int64},Int64},τ::Union{ScModel,Matthiessen}; exportasdf::Bool=false)
 
@@ -232,10 +271,23 @@ end
 
 
 @doc raw"""
-    thermal_conductivity(model::BandStructure, Ts::Union{Vector{Float64},Float64,Vector{Int64},Int64},τ::Union{ScModel,Matthiessen}; exportasdf::Bool=false, fulltensor::Bool=false)
+    thermal_conductivity(bandstructure::BandStructure, Ts::Union{Vector{Float64},Float64,Vector{Int64},Int64},τ::Union{ScModel,Matthiessen}; exportasdf::Bool=false, fulltensor::Bool=false)
 
-Function that computes the thermal conductivity in units of $W/K$ for a given `bandstructure` and a choice of the relaxation time, for an array of `fermi_level` and `temperature`. The transport coefficient is returned as a `matrix` of dimensions length(T)*length(μ). The boolean variable `exportasdf` allows to return the calculations as a `DataFrame` with all the parameters included. If `fulltensor` is set to `true`, the full tensor is returned in place of the trace.. 
+Function that computes the thermal conductivity in units of $W/K$ for a given `bandstructure` and a choice of the relaxation time `$\tau$`, for given values of chemical potential `$\mu$` and temperature `Ts`. The transport coefficient is returned as a `matrix` of dimensions `(length(T),length(μ))`. The boolean variable `exportasdf` allows to return the calculations as a `DataFrame` with all the parameters included. If `fulltensor` is set to `true`, the full tensor is returned in place of the trace.. 
 Reference: "Theory of band warping and its effects on thermoelectronic transport properties", PHYSICAL REVIEW B89.
+
+# Example
+```jldoctest
+julia> m = [1.0, 1.0, 1.0, 0.0, 0.0, 0.0];  # effectuve mass
+julia> band = ParabBand(m,0.0,1,1); # build the band
+julia> μ = collect(-.1:.01:.1); # fermi level position
+julia> model = BandStructure(1,band_1,μ)    # build the band structure
+julia> T = collect(50:10:650);  # temperature range
+julia> τ_form = Scattering.constant()   # relaxation time
+
+julia> Κ = thermal_conductivity(model,T,τ_form); # compute the thermal conductivity
+``` 
+
 """
 function thermal_conductivity(model::BandStructure, Ts::Union{Vector{Float64},Float64,Vector{Int64},Int64},τ::Union{ScModel,Matthiessen}; exportasdf::Bool=false, fulltensor::Bool=false)
     
@@ -294,10 +346,23 @@ end
 
 
 @doc raw"""
-    lorenz_tensor(model::BandStructure, Ts::Union{Vector{Float64},Float64,Vector{Int64},Int64},τ::Union{ScModel,Matthiessen};exportasdf::Bool=false,fulltensor::Bool=false)
- 
-Function that computes the Lorentz tensor for a given `bandstructure` and a choice of the relaxation time, for an array of `fermi_level` and `temperature`. The Lorentz tensor is returned as a `matrix` of dimensions length(T)*length(μ). The boolean variable `exportasdf` allows to return the calculations as a `DataFrame` with all the parameters included. If `fulltensor` is set to `true`, the full tensor is returned in place of the trace. 
+lorenz_tensor(bandstructure::BandStructure, Ts::Union{Vector{Float64},Float64,Vector{Int64},Int64},τ::Union{ScModel,Matthiessen}; exportasdf::Bool=false, fulltensor::Bool=false)
+
+Function that computes the Lorentz tensor for a given `bandstructure` and a choice of the relaxation time `$\tau$`, for given values of chemical potential `$\mu$` and temperature `Ts`. The transport coefficient is returned as a `matrix` of dimensions `(length(T),length(μ))`. The boolean variable `exportasdf` allows to return the calculations as a `DataFrame` with all the parameters included. If `fulltensor` is set to `true`, the full tensor is returned in place of the trace. 
 The Lorentz tensor is defined as the ratio between thermal and electrical conductivity multiplied by temperature. Ref.: https://en.wikipedia.org/wiki/Wiedemann-Franz_law
+
+# Example
+```jldoctest
+julia> m = [1.0, 1.0, 1.0, 0.0, 0.0, 0.0];  # effectuve mass
+julia> band = ParabBand(m,0.0,1,1); # build the band
+julia> μ = collect(-.1:.01:.1); # fermi level position
+julia> model = BandStructure(1,band_1,μ)    # build the band structure
+julia> T = collect(50:10:650);  # temperature range
+julia> τ_form = Scattering.constant()   # relaxation time
+
+julia> L = lorenz_tensor(model,T,τ_form); # compute the lorenz tensor
+``` 
+
 """
 function lorenz_tensor(model::BandStructure, Ts::Union{Vector{Float64},Float64,Vector{Int64},Int64},τ::Union{ScModel,Matthiessen};exportasdf::Bool=false,fulltensor::Bool=false)
     sLTMB = time_ns()
@@ -437,7 +502,7 @@ end
 
 
 @doc raw"""
-Ln(ϵ₀::Float64, μ::Float64, bandtype::Int64, T::Float64, β::Float64, n::Int64, idx::Int64, scm::ScModel)Ln(ϵ₀, μ, bandtype, T, β, n, idx, τ)
+    Ln(ϵ₀::Float64, μ::Float64, bandtype::Int64, T::Float64, β::Float64, n::Int64, idx::Int64, scm::ScModel)
  
 This function is called when an integration is required. $n=0,1,2$ is the index of the kinetic coefficient.
 Reference: "Theory of band warping and its effects on thermoelectronic transport properties", PHYSICAL REVIEW B89. 

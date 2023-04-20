@@ -24,14 +24,16 @@
 @doc raw"""
     constant(A::T=1.0) where {T<:Real}
 
-Model for the relaxation time is set to the constant relaxation time approximation.
-τ model: τ = A*1e-14
+Model for the relaxation time is set to the constant relaxation time approximation (CRTA), `$τ = A*1e-14$`. Tje default value for A is 1.0.
 
 Parameter:
-A: value for the A constant above.
+- `A`: value for the A constant above.
 
-Example:
-τ_model = constant()
+# Example
+```jldoctest
+julia> τ_form = Scattering.constant()   # relaxation time
+``` 
+
 """
 function constant(A::T=1.0) where {T<:Real}
     τ() = A*1e-14
@@ -44,9 +46,12 @@ end
 
 Set the **temperature dependence** of the relaxation time from a function given by the user.  
 
-Example:
-f(T) = sqrt(T)  # τ ∝ √T
-τ_model = T_fun(f)
+# Example
+```jldoctest
+julia> f(T) = sqrt(T)  # τ ∝ √T
+julia> τ_form = T_fun(f)   # relaxation time
+``` 
+
 """
 function T_fun(τ::Function)
     return TFunc(τ=τ)
@@ -58,9 +63,12 @@ end
 
 Set the **energy** and **temperature dependence** of the relaxation time from a function given by the user.  
 
-Example:
-f(ϵ,T) = sqrt(ϵ)/T  # τ ∝ √ϵ/T
-τ_model = ET_fun(f)
+# Example
+```jldoctest
+julia> f(ϵ,T) = sqrt(ϵ)/T  # τ ∝ √ϵ/T
+julia> τ_form = ET_fun(f)  # relaxation time
+```
+
 """
 function ET_fun(τ::Function)
     return ϵTFunc(τ=τ)
@@ -73,13 +81,16 @@ end
 Include **impurity scattering** in the simulations.
 
 Parameters:
-ϵ_im: energy of the impurity in eV
-A: multiplicative constant in front of the functional expression
-γ: γ-parameter three-parameter Lorentzian function (Ref: https://en.wikipedia.org/wiki/Cauchy_distribution)
+- `ϵ_im`: energy of the impurity in eV
+- `A`: multiplicative constant in front of the functional expression
+- `γ`: γ-parameter three-parameter Lorentzian function (Ref: https://en.wikipedia.org/wiki/Cauchy_distribution)
 
-Example:
-ϵ_im = 0.2  # eV
-τ_model = impurity(ϵ_im,A=1e-1)
+# Example
+```jldoctest
+julia> ϵ_im = 0.2  # eV
+julia> τ_form = impurity(ϵ_im, A=1e-1)  # relaxation time
+```
+
 """
 function impurity(ϵ_im::Real, A_im::Real=1; γ::Real=1.)
 
@@ -104,19 +115,21 @@ end
 Include **acoustic scattering** in the simulations. Implementation of the functional expression in Wilson, Alan Herries. 1953, The theory of metals / by A. H. Wilson  Cambridge Uni. Press Cambridge, England.
 
 Parameters:
-bands_min: energy of the lowest band. If a BandStructure type is passed, the value is automatically derived. 
-A_sm: multiplicative constant in front of the functional expression for the acoustic τ in semiconductors in units of 5e-20 s.
-τm_max: free parameter to constraint the functional form for the acoustic τ in metals. $τ(bandmin+μ_max,T) = τm_max$ in units of 2e-12 s$ 
-T₀: minimum of temperature range in which the τ is defined (note: τ ∝ 1/(T-T₀), where T is the temperature input defined by the user.
-μ_min: left shift in energy from the energy of the lowest band (`ϵ_min`). It defines the first point at which τ is computed (i.e., $τ \propto 1/sqrt(μ-(ϵ_min-μ_min)$).
-μ_max: right shift in energy from the energy of the band `ϵ₀`. It defines the last point at which τ is computed (i.e., $τ(ϵ₀+μ_max,T) = τm_max$).
+- `bands_min``: energy of the lowest band. If a BandStructure type is passed, the value is automatically derived. 
+- `A_sm`: multiplicative constant in front of the functional expression for the acoustic τ in semiconductors in units of 5e-20 s.
+- `τm_max`: free parameter to constraint the functional form for the acoustic τ in metals. $τ(bandmin+μ_max,T) = τm_max$ in units of 2e-12 s$ 
+- `T₀`: minimum of temperature range in which the τ is defined (note: τ ∝ 1/(T-T₀), where T is the temperature input defined by the user.
+- `μ_min`: left shift in energy from the energy of the lowest band (`ϵ_min`). It defines the first point at which τ is computed (i.e., $τ \propto 1/sqrt(μ-(ϵ_min-μ_min)$).
+- `μ_max`: right shift in energy from the energy of the band `ϵ₀`. It defines the last point at which τ is computed (i.e., $τ(ϵ₀+μ_max,T) = τm_max$).
 
-Example:
-band_1 = ParabBand([5.0, 5.0, 5.0, 0.0, 0.0, 0.0],1.0, 1,1);    # conduction band
-band_2 = ParabBand([0.1, 0.5, 3.0, 0.0, 0.0, 0.0],0.5,-1,1);    # valence band
-model = BandStructure(2,[band_1,band_2],0.8);   # build the two-band structure
+# Example
+```jldoctest
+julia> band_1 = ParabBand([5.0, 5.0, 5.0, 0.0, 0.0, 0.0],1.0, 1,1);    # conduction band
+julia> band_2 = ParabBand([0.1, 0.5, 3.0, 0.0, 0.0, 0.0],0.5,-1,1);    # valence band
+julia> model = BandStructure(2,[band_1,band_2],0.8);   # build the two-band structure
+julia> τ_form = Scattering.acoustic(model,T₀=180,μ_min=5,μ_max=5);  # relaxation time
+```
 
-τ_form = Scattering.acoustic(model);
 """
 function acoustic(bands_min::Union{BandStructure,Real}, A_sm::Real=1., τm_max::Real=1.; T₀::Real=50., μ_min::Real=2, μ_max::Real=2, s=2)
     # allow for (relatively) reasonable parameters in the interface
@@ -173,16 +186,21 @@ end
 This function applies Matthiessen's rule to sum up different scattering mechanisms. 
 
 Parameters:
-τ_models: vector of relaxation time models
-γ: exponent in the generalized Matthiessen's rule:
-$τ = (\sum_i τ_i^γ)^(1/γ)$,
-where each $\tau_i$ can be a function of $T$ and/or $μ$. 
+- `τ_models`: vector of relaxation time models
+- `γ`: exponent in the generalized Matthiessen's rule:
+```math
+\tau = (\sum_i τ_i^γ)^(1/γ), 
+```
+where each `$\tau_i$` can be a function of `$T$` and/or `$\mu$`. 
 
-Example:
-ϵ_im = 0.2  # eV
-τ1 = constant()
-τ2 = impurity(ϵ_im,A=1e-1)
-τ_model =  matthiessen([τ1,τ2])
+# Example
+```jldoctest
+julia> ϵ_im = 0.2  # eV
+julia> τ1 = constant()  # CRTA
+julia> τ2 = impurity(ϵ_im,A=1e-1)   # impurity scattering
+julia> τ_model =  matthiessen([τ1,τ2]);  # matthiessen's rule
+```
+
 """
 function matthiessen(τ_models::Array{ScModel};γ::Real=-1.)
     return Matthiessen(τ_models=τ_models,γ=γ)

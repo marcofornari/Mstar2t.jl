@@ -35,40 +35,44 @@ jlgreen = Colors.JULIA_LOGO_COLORS.green
 
 
 @doc raw"""
-    plot(num_plots::Int64, x_axis::Union{Vector{Float64},Float64,Vector{Int64},Int64}, data::Union{Vector{Float64},Matrix{Float64},Vector{Vector{Float64}},Vector{Matrix{Float64}}}, z::Union{Vector{Float64},Vector{Int64}}=Float64[]; vlines::Union{Float64,Array{Float64}}=Float64[], annotations=[], color::ColorTypes.RGBA{Float64}=ColorTypes.RGBA{Float64}(Colors.JULIA_LOGO_COLORS.blue), colorscheme=:viridis, titles::Union{LaTeXString,Vector{LaTeXString}}=L"", xlabels::Union{LaTeXString,Vector{LaTeXString}}=L"", ylabels::Union{LaTeXString,Vector{LaTeXString}}=L"", zlabel::LaTeXString=L"")
+    plot(num_plots, x_axis, data, z; vlines=Float64[], annotations=[], color=ColorTypes.RGBA{Float64}(Colors.JULIA_LOGO_COLORS.blue), colorscheme=:viridis, titles=L"", xlabels=L"", ylabels=L"", zlabel=L"")
  
-Plot the transport coefficients. y must be a vector if plotting a single line, or a matrix of **shape** `length(x_axis)*length(z_axis)` if plotting more than one line. 
+Plot the transport coefficients. `y` must be a vector if plotting a single line, or a matrix of **shape** `(length(x_axis),length(z_axis))` if plotting more than one line. 
 
 Parameters:
-num_plots: number of transport coefficients to plot in the same figure
-x: x axis vector
-y: y axis vector/matrix
-z: z axis vector
-titles: titles for each plot
-xlabels: x labels for each plot
-ylabels: x labels for each plot
-zlabel: z labels for the shared colorbar
-color: line color
-colorscheme: colormap
-vlines: add vertical lines to the plot
-annotations: add text annotation to the plot
+- `num_plots` (Int64): number of transport coefficients to plot in the same figure
+- `x` (Union{Vector{Float64},Float64,Vector{Int64},Int64}): x axis vector
+- `y` (Union{Vector{Float64},Matrix{Float64},Vector{Vector{Float64}},Vector{Matrix{Float64}}}): y axis vector/matrix
+- `z` (Union{Vector{Float64},Vector{Int64}}): z axis vector
+- `titles` (Union{LaTeXString,Vector{LaTeXString}}): titles for each plot
+- `xlabels` (Union{LaTeXString,Vector{LaTeXString}}): x labels for each plot
+- `ylabels` (Union{LaTeXString,Vector{LaTeXString}}): x labels for each plot
+- `zlabel` (LaTeXString): z labels for the shared colorbar
+- `color` (ColorTypes.RGBA{Float64}): line color
+- `colorscheme`: colormap
+- `vlines` (Union{Float64,Array{Float64}}): add vertical lines to the plot
+- `annotations` (Vector{Any}): add text annotation to the plot
 
-Examples:
-1. Single line (z is empty). Plot of electrical conductivity, Seebeck and carrier concentration as functions of the band gap.
+# Example
+1. `Single line` (z is empty). Plot of electrical conductivity, Seebeck and carrier concentration as functions of the band `gap`.
+```jldoctest
+julia> titles  = [L"$σ$ vs gap, $μ$ = %$μ, $τ = const$", L"$S$ vs gap, $μ$ = %$μ, $τ = const$", L"$n$ vs gap, $μ$ = %$μ, $τ = const$"]
+julia> xlabels = [L"$Gap$ $[eV]$" for i in 1:3];
+julia> ylabels = [L"$\sigma$ $[(\Omega m)^{-1}]$", L"$S$ $[\mu VK^{-1}]$", L"n"];
+julia> annotations = Dict(L"v1" => [(0.11,6e5),(0.11,0),(0.11,5e6)], L"v2" => [(0.01,6e5-5e3),(0.01,0),(0.01,5e6-5e4)]);
+julia> fig = plot(3, gap, [σ,S,n], titles=titles, xlabels=xlabels, ylabels=ylabels, vlines=[0.0,0.1], annotations=annotations);
+```
 
-titles  = [L"$σ$ vs gap, $μ$ = %$μ, $τ = const$", L"$S$ vs gap, $μ$ = %$μ, $τ = const$", L"$n$ vs gap, $μ$ = %$μ, $τ = const$"]
-xlabels = [L"$Gap$ $[eV]$" for i in 1:3];
-ylabels = [L"$\sigma$ $[(\Omega m)^{-1}]$", L"$S$ $[\mu VK^{-1}]$", L"n"];
-annotations = Dict(L"v1" => [(0.11,6e5),(0.11,0),(0.11,5e6)], L"v2" => [(0.01,6e5-5e3),(0.01,0),(0.01,5e6-5e4)]);
-
-fig = plot(3, gap, [σ,S,n], titles=titles, xlabels=xlabels, ylabels=ylabels, vlines=[0.0,0.1], annotations=annotations);
-
-2. Multi-lines. Plot of electrical conductivity, Seebeck and carrier concentration as functions of the band gap and temperature (z axis). 
-
-zlabel  = L"$T$ $[K]$";
-
-fig = plot(3, gap, [σ,S,n], T, titles=titles, xlabels=xlabels, ylabels=ylabels, zlabel=zlabel, vlines=[0.0,0.1], annotations=annotations);
-
+2. `Multi-lines``. Plot of electrical conductivity, Seebeck and carrier concentration as functions of the band `gap` and `temperature` (z axis). 
+```jldoctest
+julia> titles  = [L"$σ$ vs gap, $μ$ = %$μ, $τ = const$", L"$S$ vs gap, $μ$ = %$μ, $τ = const$", L"$n$ vs gap, $μ$ = %$μ, $τ = const$"]
+julia> xlabels = [L"$Gap$ $[eV]$" for i in 1:3];
+julia> ylabels = [L"$\sigma$ $[(\Omega m)^{-1}]$", L"$S$ $[\mu VK^{-1}]$", L"n"];
+julia> zlabel  = L"$T$ $[K]$";
+julia> annotations = Dict(L"v1" => [(0.11,6e5),(0.11,0),(0.11,5e6)], L"v2" => [(0.01,6e5-5e3),(0.01,0),(0.01,5e6-5e4)]);
+julia> fig = plot(3, gap, [σ,S,n], T, titles=titles, xlabels=xlabels, ylabels=ylabels, zlabel=zlabel, vlines=[0.0,0.1], annotations=annotations);
+```
+`
 """
 function plot(num_plots::Int64, x_axis::Union{Vector{Float64},Float64,Vector{Int64},Int64}, data::Union{Vector{Float64},Matrix{Float64},Vector{Vector{Float64}},Vector{Matrix{Float64}}}, z::Union{Vector{Float64},Vector{Int64}}=Float64[]; vlines::Union{Float64,Array{Float64}}=Float64[], annotations=[], color::ColorTypes.RGBA{Float64}=ColorTypes.RGBA{Float64}(Colors.JULIA_LOGO_COLORS.blue), colorscheme=:viridis, titles::Union{LaTeXString,Vector{LaTeXString}}=L"", xlabels::Union{LaTeXString,Vector{LaTeXString}}=L"", ylabels::Union{LaTeXString,Vector{LaTeXString}}=L"", zlabel::LaTeXString=L"")
     
@@ -273,16 +277,19 @@ end
 Plot a given parabolic band structure. 
 
 Parameters:
-bs: band structure
-xaxis: x axis vector
-colors: tuple of three color from `Colors`. First: conduction bands. Second: valence band. Third: Fermi level.
+- `bs`: band structure
+- `xaxis`: x axis vector
+- `colors`: tuple of three color from `Colors`. First: conduction bands. Second: valence band. Third: Fermi level.
 
-Examples:
-band_1 = ParabBand([5.0, 5.0, 5.0, 0.0, 0.0, 0.0],1.0, 1,1);    # conduction band
-band_2 = ParabBand([0.1, 0.5, 3.0, 0.0, 0.0, 0.0],0.5,-1,1);    # valence band
-μ = 0.8;
-model = BandStructure(2,[band_1,band_2],μ);   # build the two-band structure
-fig,ax = plot_bandstructure(model,colors=(:green,:red,:blue))
+# Examples:
+```jldoctest
+julia> band_1 = ParabBand([5.0, 5.0, 5.0, 0.0, 0.0, 0.0],1.0, 1,1);    # conduction band
+julia> band_2 = ParabBand([0.1, 0.5, 3.0, 0.0, 0.0, 0.0],0.5,-1,1);    # valence band
+julia> μ = 0.8;   # Fermi level
+julia> model = BandStructure(2,[band_1,band_2],μ);   # build the two-band structure
+julia> fig,ax = plot_bandstructure(model,colors=(:green,:red,:blue))
+```
+
 """
 function plot_bandstructure(bs::BandStructure,xaxis::AbstractArray=range(-1, 1, length=100); colors=nothing, label="")
     n_bands = bs.n
@@ -327,23 +334,31 @@ end
 3D plot of a given relaxation time as a function of temperature, energy and Fermi level. 
 
 Parameters:
-scm: relaxation time model
-t: temperature
-type: type of plot specificed in "x_axis-z_axis" format. Available types are "e-T","T-e","μ-T","T".
-μ: Fermi level vector. It's **mandatory** for type="μ-T".
-ϵ₀: band energy. It's **mandatory** for acoustic relaxation time.
-bandtype: band type (conduction, valence). It's **mandatory** for acoustic relaxation time.
+- `scm`: relaxation time model
+- `t`: temperature
+- `type`: type of plot specificed in "x_axis-z_axis" format. Available types are "e-T","T-e","μ-T","T".
+- `μ`: Fermi level vector. It's **mandatory** for type="μ-T".
+- `ϵ₀`: band energy. It's **mandatory** for acoustic relaxation time.
+- `bandtype`: band type (conduction, valence). It's **mandatory** for acoustic relaxation time.
 
-Examples:
-T = collect(300:10:650);
-
+# Examples:
 1. Constant relaxation time
-τ_form = Scattering.constant()
-fig = plot_τ(τ_form, T, "T");
+```jldoctest
+julia> T = collect(300:10:650);  # temperature
+julia> τ_form = Scattering.constant()
+julia> fig = plot_τ(τ_form, T, "T");
+```
 
 2. Acoustic
-τ_form = Scattering.acoustic(model,T₀=180,μ_min=5,μ_max=5);
-fig = plot_τ(τ_form, T, "μ-T", μ=μ, ϵ₀=ϵ₀, bandtype=type);
+```jldoctest
+julia> ϵ₀ = .1;  # band energy
+julia> type = 1;  # band type (conduction)
+julia> T = collect(300:10:650);  # temperature
+julia> μ = collect(0.0:0.1:1.0);  # Fermi level
+julia> τ_form = Scattering.acoustic(model,T₀=180,μ_min=5,μ_max=5);
+julia> fig = plot_τ(τ_form, T, "μ-T", μ=μ, ϵ₀=ϵ₀, bandtype=type);
+```
+
 """
 function plot_τ(scm::Union{ScModel,Matthiessen}, t::Union{Vector{Float64},Vector{Int64}}, type="e-T",E_argmax::Int64=50; μ=nothing, ϵ₀::Float64=-42., bandtype::Int64=0) 
     
@@ -614,6 +629,22 @@ end
     savefig(fullpath::String, fig::Figure)
 
 Export to disk a given figure to `fullpath`.
+
+# Example
+
+1. Save the plot for the relaxation time as a function of temperature and Fermi level.
+```jldoctest
+julia> τ_form = Scattering.acoustic(model,T₀=180,μ_min=5,μ_max=5);
+julia> fig = plot_τ(τ_form, T, "μ-T", μ=μ, ϵ₀=ϵ₀, bandtype=type);
+julia> savefig("acoustic_tau.png", fig);
+```
+
+2. Save the plot for the electrical conductivity, Seebeck coefficient and carrier density as a function of temperature and Fermi level.
+```jldoctest
+julia> fig = plot(3, T, [σ,S*1e6,n], μ, titles=titles, xlabels=xlabels, ylabels=ylabels, zlabel=zlabel);
+julia> savefig("transport_coefficients.png", fig);
+```
+
 """
 function savefig(fullpath::String, fig::Figure)
     save(fullpath, fig)
