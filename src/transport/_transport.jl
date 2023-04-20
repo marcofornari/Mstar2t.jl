@@ -198,7 +198,7 @@ function compute_seebeck(num_bands::Int64,cTensorParameters::Vector{Vector{Float
     return S
 end
 
-"""
+@doc raw"""
     carrier_concentration(bandstructure::BandStructure, Ts::Union{Vector{Float64},Float64,Vector{Int64},Int64}, τ::Union{ScModel,Matthiessen}; exportasdf::Bool=false)
  
 Function that computes the carrier concentration for a given `bandstructure` and a choice of the relaxation time `$\tau$`, for given values of chemical potential `$\mu$` and temperature `Ts`. The transport coefficient is returned as a `matrix` of dimensions `(length(T),length(μ))`. The boolean variable `exportasdf` allows to return the calculations as a `DataFrame` with all the parameters included.
