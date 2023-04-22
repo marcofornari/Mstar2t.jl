@@ -42,17 +42,17 @@ Plot the transport coefficients. `y` must be a vector if plotting a single line,
 Parameters:
 ```julia
 - num_plots::Int64 : number of transport coefficients to plot in the same figure
-- x::Union{Vector{Float64},Float64,Vector{Int64},Int64} : x axis vector
-- y::Union{Vector{Float64},Matrix{Float64},Vector{Vector{Float64}},Vector{Matrix{Float64}}} : y axis vector/matrix
-- z::Union{Vector{Float64},Vector{Int64}} : z axis vector
-- titles::Union{LaTeXString,Vector{LaTeXString}} : titles for each plot
-- xlabels::Union{LaTeXString,Vector{LaTeXString}} : x labels for each plot
-- ylabels::Union{LaTeXString,Vector{LaTeXString}} : x labels for each plot
-- zlabel::LaTeXString : z labels for the shared colorbar
-- color::ColorTypes.RGBA{Float64} : line color
-- colorscheme: colormap
-- vlines::Union{Float64,Array{Float64}} : add vertical lines to the plot
-- annotations::Vector{Any} : add text annotation to the plot
+- x::Union{Vector{Float64},Float64,Vector{Int64},Int64} # x axis vector
+- y::Union{Vector{Float64},Matrix{Float64},Vector{Vector{Float64}},Vector{Matrix{Float64}}} # y axis vector/matrix
+- z::Union{Vector{Float64},Vector{Int64}}   # z axis vector
+- titles::Union{LaTeXString,Vector{LaTeXString}}    # titles for each plot
+- xlabels::Union{LaTeXString,Vector{LaTeXString}}   # x labels for each plot
+- ylabels::Union{LaTeXString,Vector{LaTeXString}}   # x labels for each plot
+- zlabel::LaTeXString   # z labels for the shared colorbar
+- color::ColorTypes.RGBA{Float64}   # line color
+- colorscheme   # colormap
+- vlines::Union{Float64,Array{Float64}} # add vertical lines to the plot
+- annotations::Vector{Any}  # add text annotation to the plot
 ```
 
 # Example
@@ -339,7 +339,7 @@ Parameters:
 - `scm`: relaxation time model
 - `t`: temperature
 - `type`: type of plot specificed in "x_axis-z_axis" format. Available types are "e-T","T-e","μ-T","T".
-- `μ`: Fermi level vector. It's **mandatory** for type="μ-T".
+- `μ`: Fermi level vector. It's **mandatory** if type="μ-T".
 - `ϵ₀`: band energy. It's **mandatory** for acoustic relaxation time.
 - `bandtype`: band type (conduction, valence). It's **mandatory** for acoustic relaxation time.
 
