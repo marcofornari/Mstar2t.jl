@@ -1,6 +1,6 @@
 # Mstar2t Julia package
 
-*Julia package version of the [m\*2T software](https://github.com/marcofornari/etransport)*
+*Julia package version of the [m\*2T software.](https://github.com/marcofornari/etransport)*
 
 [![Dev logo](https://img.shields.io/badge/docs-dev-blue.svg)](https://marcofornari.github.io/Mstar2t.jl/dev/)
 
