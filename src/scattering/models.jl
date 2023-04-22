@@ -24,7 +24,7 @@
 @doc raw"""
     constant(A::T=1.0) where {T<:Real}
 
-Model for the relaxation time is set to the constant relaxation time approximation (CRTA), $τ = A*1e-14$. Tje default value for A is 1.0.
+Model for the relaxation time is set to the constant relaxation time approximation (CRTA), $\tau = A\cdot 10^{-14}$. Tje default value for A is 1.0.
 
 Parameter:
 - `A`: value for the A constant above.
@@ -112,14 +112,14 @@ end
 @doc raw"""
     acoustic(bands_min::Union{BandStructure,Real}, A_sm::Real=1., τm_max::Real=1.; T₀::Real=50., μ_min::Real=2, μ_max::Real=2, s=2)
 
-Include **acoustic scattering** in the simulations. Implementation of the functional expression in Wilson, Alan Herries. 1953, The theory of metals / by A. H. Wilson  Cambridge Uni. Press Cambridge, England.
+Include **acoustic scattering** in the simulations. Implementation of the functional expression in Wilson, Alan Herries. 1953, The theory of metals by A. H. Wilson  Cambridge Uni. Press Cambridge, England.
 
 Parameters:
 - `bands_min``: energy of the lowest band. If a BandStructure type is passed, the value is automatically derived. 
-- `A_sm`: multiplicative constant in front of the functional expression for the acoustic τ in semiconductors in units of 5e-20 s.
-- `τm_max`: free parameter to constraint the functional form for the acoustic τ in metals. $τ(ϵ₀+μ\_max,T) = τm_max$ in units of $2e-12$ s, where $ϵ₀$ is the minimum/maximum of the band. 
+- `A_sm`: multiplicative constant in front of the functional expression for the acoustic τ in semiconductors in units of $5\cdot 10^{-20}$ s.
+- `τm_max`: free parameter to constraint the functional form for the acoustic τ in metals. $τ(ϵ₀+μ\_max,T) = τm\_max$ in units of $2\cdot 10^{-12}$ s, where $ϵ₀$ is the minimum/maximum of the band. 
 - `T₀`: minimum of temperature range in which the τ is defined (note: τ ∝ 1/(T-T₀), where T is the temperature input defined by the user.
-- `μ_min`: left shift in energy from the energy of the lowest band (`ϵ_min`). It defines the first point at which τ is computed (i.e., $τ \propto 1/\sqrt(μ-(ϵ\_min-μ\_min)$).
+- `μ_min`: left shift in energy from the energy of the lowest band (`ϵ_min`). It defines the first point at which τ is computed (i.e., $τ \propto 1/\sqrt{μ-(ϵ\_min-μ\_min)}$).
 - `μ_max`: right shift in energy from the energy of the band $\ϵ₀$. It defines the last point at which τ is computed (i.e., $τ(ϵ₀+μ\_max,T) = τm\_max$).
 
 # Example

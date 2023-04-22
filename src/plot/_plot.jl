@@ -40,18 +40,20 @@ jlgreen = Colors.JULIA_LOGO_COLORS.green
 Plot the transport coefficients. `y` must be a vector if plotting a single line, or a matrix of **shape** `(length(x_axis),length(z_axis))` if plotting more than one line. 
 
 Parameters:
-- ```julia num_plots::Int64```: number of transport coefficients to plot in the same figure
-- `x` (Union{Vector{Float64},Float64,Vector{Int64},Int64}): x axis vector
-- `y` (Union{Vector{Float64},Matrix{Float64},Vector{Vector{Float64}},Vector{Matrix{Float64}}}): y axis vector/matrix
-- `z` (Union{Vector{Float64},Vector{Int64}}): z axis vector
-- `titles` (Union{LaTeXString,Vector{LaTeXString}}): titles for each plot
-- `xlabels` (Union{LaTeXString,Vector{LaTeXString}}): x labels for each plot
-- `ylabels` (Union{LaTeXString,Vector{LaTeXString}}): x labels for each plot
-- `zlabel` (LaTeXString): z labels for the shared colorbar
-- `color` (ColorTypes.RGBA{Float64}): line color
-- `colorscheme`: colormap
-- `vlines` (Union{Float64,Array{Float64}}): add vertical lines to the plot
-- `annotations` (Vector{Any}): add text annotation to the plot
+```julia
+- num_plots::Int64 : number of transport coefficients to plot in the same figure
+- x::Union{Vector{Float64},Float64,Vector{Int64},Int64} : x axis vector
+- y::Union{Vector{Float64},Matrix{Float64},Vector{Vector{Float64}},Vector{Matrix{Float64}}} : y axis vector/matrix
+- z::Union{Vector{Float64},Vector{Int64}} : z axis vector
+- titles::Union{LaTeXString,Vector{LaTeXString}} : titles for each plot
+- xlabels::Union{LaTeXString,Vector{LaTeXString}} : x labels for each plot
+- ylabels::Union{LaTeXString,Vector{LaTeXString}} : x labels for each plot
+- zlabel::LaTeXString : z labels for the shared colorbar
+- color::ColorTypes.RGBA{Float64} : line color
+- colorscheme: colormap
+- vlines::Union{Float64,Array{Float64}} : add vertical lines to the plot
+- annotations::Vector{Any} : add text annotation to the plot
+```
 
 # Example
 1. `Single line` (z is empty). Plot of electrical conductivity, Seebeck and carrier concentration as functions of the band `gap`.

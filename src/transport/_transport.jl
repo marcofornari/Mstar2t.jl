@@ -346,7 +346,7 @@ end
 
 
 @doc raw"""
-lorenz_tensor(bandstructure::BandStructure, Ts::Union{Vector{Float64},Float64,Vector{Int64},Int64},τ::Union{ScModel,Matthiessen}; exportasdf::Bool=false, fulltensor::Bool=false)
+    lorenz_tensor(bandstructure::BandStructure, Ts::Union{Vector{Float64},Float64,Vector{Int64},Int64},τ::Union{ScModel,Matthiessen}; exportasdf::Bool=false, fulltensor::Bool=false)
 
 Function that computes the Lorentz tensor for a given `bandstructure` and a choice of the relaxation time $\tau$, for given values of chemical potential $\mu$ and temperature `Ts`. The transport coefficient is returned as a `matrix` of dimensions `(length(T),length(μ))`. The boolean variable `exportasdf` allows to return the calculations as a `DataFrame` with all the parameters included. If `fulltensor` is set to `true`, the full tensor is returned in place of the trace. 
 The Lorentz tensor is defined as the ratio between thermal and electrical conductivity multiplied by temperature. Ref.: https://en.wikipedia.org/wiki/Wiedemann-Franz_law

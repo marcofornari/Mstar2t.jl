@@ -39,7 +39,6 @@ julia> deg = 1;
 julia> band = ParabBand(mstar,ϵ₀,type,deg);  # band creation
 ```
 
-```
 """
 struct ParabBand
     mstar::Vector{Float64}
